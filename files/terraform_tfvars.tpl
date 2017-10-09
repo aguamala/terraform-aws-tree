@@ -1,5 +1,5 @@
 
-terraform_backend_s3_bucket = "\"${terraform_tfvars_state_bucket}\""
+terraform_backend_bucket = "\"${terraform_tfvars_backend_bucket}\""
 
-aws_terraform_region = "\"${terraform_tfvars_region}\""
-aws_terraform_profile = "\"${terraform_tfvars_profile}\""
+terraform_aws_region = "\"${terraform_tfvars_region}\""
+terraform_aws_profile = "\"${terraform_tfvars_profile}\""

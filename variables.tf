@@ -4,7 +4,7 @@ variable "tree_path" {
 
 variable "modules_path" {
   default = "github.com/aguamala/"
-  #default = "/home/gabo/github.com/aguamala/terraform-init/"
+  #default = "/home/gabo/github.com/aguamala/"
 }
 
 variable "modules_ref" {
@@ -35,6 +35,9 @@ variable "services" {
   ]
 }
 
+#--------------------------------------------------------------
+# Resources created in the default workspace only
+#--------------------------------------------------------------
 variable "global_services" {
   type = "list"
 

@@ -4,7 +4,7 @@ resource "null_resource" "root_directory" {
   }
 
   provisioner "local-exec" {
-    command = "touch ${var.tree_path}/global_data_tfstate_files.tf && touch ${var.tree_path}/workspace_data_tfstate_files.tf && touch ${var.tree_path}/terraform.tfvars && cp -p ${path.module}/files/provider.tf ${var.tree_path}/ && cp -p ${path.module}/files/templates.tf ${var.tree_path}/ && cp -p ${path.module}/files/variables.tf ${var.tree_path}/"
+    command = "touch ${var.tree_path}/terraform_remote_state_files_workspace.tf && touch ${var.tree_path}/terraform_remote_state_files_workspace.tf && touch ${var.tree_path}/terraform.tfvars && cp -p ${path.module}/files/provider.tf ${var.tree_path}/ && cp -p ${path.module}/files/templates.tf ${var.tree_path}/ && cp -p ${path.module}/files/variables.tf ${var.tree_path}/"
   }
 
   provisioner "local-exec" {
@@ -12,8 +12,8 @@ resource "null_resource" "root_directory" {
   }
 }
 
-data "template_file" "root_backend_config" {
-  template = "${file("${path.module}/templates/root_backend_s3_config.tpl")}"
+data "template_file" "terraform_backend" {
+  template = "${file("${path.module}/templates/terraform_backend.tpl")}"
 
   vars {
     modules_path = "${var.modules_path}"
@@ -21,28 +21,11 @@ data "template_file" "root_backend_config" {
   }
 }
 
-resource "null_resource" "root_backend_config" {
+resource "null_resource" "terraform_backend" {
   depends_on = ["null_resource.root_directory"]
 
   provisioner "local-exec" {
-    command = "echo \"${data.template_file.root_backend_config.rendered}\" > ${var.tree_path}/module_backend_config.tf"
-  }
-}
-
-data "template_file" "backend_s3_bucket" {
-  template = "${file("${path.module}/templates/backend_s3_bucket.tpl")}"
-
-  vars {
-    modules_path = "${var.modules_path}"
-    modules_ref  = "${var.modules_ref}"
-  }
-}
-
-resource "null_resource" "backend_s3_bucket" {
-  depends_on = ["null_resource.root_directory"]
-
-  provisioner "local-exec" {
-    command = "echo \"${data.template_file.backend_s3_bucket.rendered}\" > ${var.tree_path}/module_backend_s3_bucket.tf"
+    command = "echo \"${data.template_file.terraform_backend.rendered}\" > ${var.tree_path}/module_terraform_backend.tf"
   }
 }
 
@@ -68,7 +51,7 @@ resource "null_resource" "service_directory" {
 }
 
 data "template_file" "service_backend_config" {
-  template = "${file("${path.module}/templates/backend_s3_config.tpl")}"
+  template = "${file("${path.module}/templates/tfstate_config.tpl")}"
   count    = "${length(var.global_services)}"
 
   vars {
@@ -93,7 +76,7 @@ resource "null_resource" "service_links" {
   count      = "${length(var.services)}"
 
   provisioner "local-exec" {
-    command = "cd ${var.tree_path}${replace(lookup(var.service_names,var.services[count.index],var.services[count.index]), "_", "/")} && if [ ! -L global_data_tfstate_files.tf ]; then ln -s ${replace(replace(lookup(var.service_names,var.services[count.index],var.services[count.index]), "/([a-zA-Z]*[0-9]*)/", ".."), "_" , "/")}/global_data_tfstate_files.tf global_data_tfstate_files.tf; fi"
+    command = "cd ${var.tree_path}${replace(lookup(var.service_names,var.services[count.index],var.services[count.index]), "_", "/")} && if [ ! -L terraform_remote_state_files_global.tf ]; then ln -s ${replace(replace(lookup(var.service_names,var.services[count.index],var.services[count.index]), "/([a-zA-Z]*[0-9]*)/", ".."), "_" , "/")}/terraform_remote_state_files_global.tf terraform_remote_state_files_global.tf; fi"
   }
 
   provisioner "local-exec" {
