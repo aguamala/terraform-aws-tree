@@ -13,25 +13,19 @@ variable "modules_ref" {
   #default = ""
 }
 
-variable "domain" {
-  type    = "string"
-  default = "default"
-}
-
-variable "services" {
+#--------------------------------------------------------------
+# Resources created in more than one workspace
+#--------------------------------------------------------------
+variable "workspaces_services" {
   type = "list"
 
   default = [
-    "IAM",
     "EC2",
     "ContainerService",
-    "S3",
     "EFS",
     "RDS",
     "DynamoDB",
     "VPC",
-    "Route53",
-    "CodeCommit",
   ]
 }
 
