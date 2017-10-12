@@ -16,7 +16,7 @@ variable "modules_ref" {
 #--------------------------------------------------------------
 # Resources created in more than one workspace
 #--------------------------------------------------------------
-variable "workspaces_services" {
+variable "workspace_services" {
   type = "list"
 
   default = [

@@ -18,14 +18,6 @@ output "\"terraform_backend_readonly__access_policy_arn\"" {
   value = "\"\$\{module.terraform_backend.this_iam_policy_readonly_access_arn\}\""
 }
 
-output "\"terraform_backend_write_access_policy_name\"" {
-  value = "\"\$\{module.terraform_backend.this_iam_policy_write_access_name\}\""
-}
-
-output "\"terraform_backend_write_access_policy_arn\"" {
-  value = "\"\$\{module.terraform_backend.this_iam_policy_write_access_arn\}\""
-}
-
 module "\"terraform_backend\"" {
   source                        = "\"${modules_path}terraform-aws-backend${modules_ref}\""
   
