@@ -27,7 +27,7 @@ resource "null_resource" "terraform_backend" {
   depends_on = ["null_resource.root_directory"]
 
   provisioner "local-exec" {
-    command = "echo \"${data.template_file.terraform_backend.rendered}\" > ${var.tree_path}/module_terraform_backend.tf"
+    command = "echo \"${data.template_file.terraform_backend.rendered}\" > ${var.tree_path}/terraform_backend.tf"
   }
 }
 
@@ -91,7 +91,7 @@ resource "null_resource" "workspace_service_backend_config" {
   count      = "${length(var.workspace_services)}"
 
   provisioner "local-exec" {
-    command = "echo \"${data.template_file.workspace_service_backend_config.*.rendered[count.index]}\" > ${var.tree_path}${replace(lookup(var.service_names,var.workspace_services[count.index],var.workspace_services[count.index]), "_", "/")}/module_backend_config_${var.workspace_services[count.index]}.tf"
+    command = "echo \"${data.template_file.workspace_service_backend_config.*.rendered[count.index]}\" > ${var.tree_path}${replace(lookup(var.service_names,var.workspace_services[count.index],var.workspace_services[count.index]), "_", "/")}/backend_config_${var.workspace_services[count.index]}.tf"
   }
 }
 
@@ -150,7 +150,7 @@ resource "null_resource" "global_service_backend_config" {
   count      = "${length(var.global_services)}"
 
   provisioner "local-exec" {
-    command = "echo \"${data.template_file.global_service_backend_config.*.rendered[count.index]}\" > ${var.tree_path}${replace(lookup(var.service_names,var.global_services[count.index],var.global_services[count.index]), "_", "/")}/module_backend_config_${var.global_services[count.index]}.tf"
+    command = "echo \"${data.template_file.global_service_backend_config.*.rendered[count.index]}\" > ${var.tree_path}${replace(lookup(var.service_names,var.global_services[count.index],var.global_services[count.index]), "_", "/")}/backend_config_${var.global_services[count.index]}.tf"
   }
 }
 
