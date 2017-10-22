@@ -3,7 +3,7 @@
 #--------------------------------------------------------------
 
 module "\"${service}_tfstate_config\"" {
-    source = "\"${modules_path}/terraform-aws-backend//modules/tfstate_config${modules_ref}\""
+    source = "\"${modules_path}terraform-aws-backend//modules/tfstate_config${modules_ref}\""
 
     backend_bucket = "\"\$\{var.terraform_backend_bucket\}\""
     backend_aws_profile = "\"\$\{var.terraform_aws_profile\}\""

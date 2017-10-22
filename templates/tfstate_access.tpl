@@ -1,6 +1,6 @@
 
 module "\"${service}_tfstate_access\"" {
-    source = "\"${modules_path}/terraform-aws-backend//modules/tfstate_access${modules_ref}\""
+    source = "\"${modules_path}terraform-aws-backend//modules/tfstate_access${modules_ref}\""
 
     backend_bucket = "\"\$\{data.terraform_remote_state.state.terraform_backend_bucket_id\}\""
     tfstate_path         = "\"${path}\""
