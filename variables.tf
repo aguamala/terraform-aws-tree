@@ -20,8 +20,6 @@ variable "workspace_services" {
   type = "list"
 
   default = [
-    "IAM",
-    "S3",
     "CodeCommit",
     "Route53",
     "EC2",
@@ -39,7 +37,10 @@ variable "workspace_services" {
 variable "global_services" {
   type = "list"
 
-  default = []
+  default = [
+    "IAM",
+    "S3",
+  ]
 }
 
 variable "service_names" {

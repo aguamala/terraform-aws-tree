@@ -39,10 +39,6 @@ resource "null_resource" "workspace_service_directory" {
   provisioner "local-exec" {
     command = "mkdir -p ${var.tree_path}${replace(lookup(var.service_names,var.workspace_services[count.index],var.workspace_services[count.index]), "_", "/")}"
   }
-
-  provisioner "local-exec" {
-    command = "mkdir -p ${var.tree_path}${replace(lookup(var.service_names,var.workspace_services[count.index],var.workspace_services[count.index]), "_", "/")}/templates"
-  }
 }
 
 resource "null_resource" "workspace_service_links" {
@@ -103,10 +99,6 @@ resource "null_resource" "global_service_directory" {
 
   provisioner "local-exec" {
     command = "mkdir -p ${var.tree_path}${replace(lookup(var.service_names,var.global_services[count.index],var.global_services[count.index]), "_", "/")}"
-  }
-
-  provisioner "local-exec" {
-    command = "mkdir -p ${var.tree_path}${replace(lookup(var.service_names,var.global_services[count.index],var.global_services[count.index]), "_", "/")}/templates"
   }
 }
 

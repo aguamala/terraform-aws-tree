@@ -1,5 +1,5 @@
 
-name = ""
+name = "example"
 
 cidr = "172.25.0.0/16"
 

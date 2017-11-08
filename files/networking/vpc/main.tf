@@ -3,7 +3,7 @@
 #--------------------------------------------------------------
 
 module "vpc" {
-  source                        = "terraform-aws-modules/vpc/aws?ref=v1.0.2"
+  source                        = "terraform-aws-modules/vpc/aws"
   name                          = "${var.name}"
   cidr                          = "${var.cidr}"
   enable_dns_hostnames          = "${var.enable_dns_hostnames}"
@@ -17,3 +17,4 @@ module "vpc" {
   enable_s3_endpoint            = "${var.enable_s3_endpoint}"
   tags                          = "${var.tags}"
 }
+
