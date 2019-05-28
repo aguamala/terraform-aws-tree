@@ -16,7 +16,7 @@ resource "null_resource" "root_directory" {
 data "template_file" "terraform_backend" {
   template = "${file("${path.module}/templates/terraform_backend.tpl")}"
 
-  vars {
+  vars = {
     modules_path = "${var.modules_path}"
     modules_ref  = "${var.modules_ref}"
   }
@@ -71,7 +71,7 @@ data "template_file" "workspace_service_backend_config" {
   template = "${file("${path.module}/templates/tfstate_config.tpl")}"
   count    = "${length(var.workspace_services)}"
 
-  vars {
+  vars = {
     service                             = "${var.workspace_services[count.index]}"
     path                                = "${replace(lookup(var.service_names,var.workspace_services[count.index],var.workspace_services[count.index]), "_", "/")}/"
     path_name                           = "${lookup(var.service_names,var.workspace_services[count.index],var.workspace_services[count.index])}"
@@ -127,7 +127,7 @@ data "template_file" "global_service_backend_config" {
   template = "${file("${path.module}/templates/tfstate_config.tpl")}"
   count    = "${length(var.global_services)}"
 
-  vars {
+  vars = {
     service                             = "${var.global_services[count.index]}"
     path                                = "${replace(lookup(var.service_names,var.global_services[count.index],var.global_services[count.index]), "_", "/")}/"
     path_name                           = "${lookup(var.service_names,var.workspace_services[count.index],var.workspace_services[count.index])}"
